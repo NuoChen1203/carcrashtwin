@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name=video2world_10n
-#SBATCH -N 10                 # 10 个节点
+#SBATCH --job-name=video2world_24n
+#SBATCH -N 24                 # 10 个节点
 #SBATCH -p gh
 #SBATCH -t 6:00:00
 #SBATCH --ntasks-per-node=1   # 每节点 1 个 task
@@ -27,11 +27,11 @@ mkdir -p slurm_logs "$OUTPUT_ROOT"
 mapfile -t VIDEO_LISTS < <(sed -e 's/^[[:space:]]*//; s/[[:space:]]*$//' "$VIDEOS_MANIFEST" | grep -v '^[[:space:]]*$')
 mapfile -t PROMPT_LISTS < <(sed -e 's/^[[:space:]]*//; s/[[:space:]]*$//' "$PROMPTS_MANIFEST" | grep -v '^[[:space:]]*$')
 
-if [[ "${#VIDEO_LISTS[@]}" -ne 10 ]]; then
-  echo "[ERROR] $VIDEOS_MANIFEST must have exactly 10 non-empty lines." >&2; exit 1
+if [[ "${#VIDEO_LISTS[@]}" -ne 24 ]]; then
+  echo "[ERROR] $VIDEOS_MANIFEST must have exactly 24 non-empty lines." >&2; exit 1
 fi
-if [[ "${#PROMPT_LISTS[@]}" -ne 10 ]]; then
-  echo "[ERROR] $PROMPTS_MANIFEST must have exactly 10 non-empty lines." >&2; exit 1
+if [[ "${#PROMPT_LISTS[@]}" -ne 24 ]]; then
+  echo "[ERROR] $PROMPTS_MANIFEST must have exactly 24 non-empty lines." >&2; exit 1
 fi
 
 echo "[INFO] Using ${#VIDEO_LISTS[@]} video lists and ${#PROMPT_LISTS[@]} prompt lists."
@@ -40,7 +40,7 @@ echo "[INFO] OUTPUT_ROOT=$OUTPUT_ROOT"
 
 # ========== 并发启动 10 个 task（每 task 绑定 1 节点 / 1GPU）==========
 pids=()
-for IDX in $(seq 0 9); do
+for IDX in $(seq 0 23); do
   VLIST="${VIDEO_LISTS[$IDX]}"
   PLIST="${PROMPT_LISTS[$IDX]}"
 
