@@ -1,1 +1,10 @@
-
+lists/prompts_00.txt
+lists/prompts_01.txt
+lists/prompts_02.txt
+lists/prompts_03.txt
+lists/prompts_04.txt
+lists/prompts_05.txt
+lists/prompts_06.txt
+lists/prompts_07.txt
+lists/prompts_08.txt
+lists/prompts_09.txt
